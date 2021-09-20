@@ -1,6 +1,6 @@
 import React from "react";
 import * as ReactBootStrap from "react-bootstrap";
-import _ from "lodash";
+
 const Table = ({ patients }) => {
   return (
     <ReactBootStrap.Table striped bordered>

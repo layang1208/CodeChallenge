@@ -9,10 +9,14 @@ const apiEndPoint = backendApi + "/patients";
 
 const Patients = () => {
   const [patients, setPatients] = useState([]);
+  const [fetch, setFetch] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [addTerm, setAddTerm] = useState("");
   const [deleteTerm, setDeleteTerm] = useState("");
   const [error, setError] = useState("");
+
+  // To update the table, make a trigger to tell when to fetch data
+  const dataFetch = () => setFetch((t) => !t);
 
   const getPatients = async () => {
     try {
@@ -47,7 +51,7 @@ const Patients = () => {
       setError(err.response.data);
     }
     setAddTerm("");
-    getPatients();
+    dataFetch();
   };
   const deletePatient = async (e) => {
     e.preventDefault();
@@ -60,16 +64,16 @@ const Patients = () => {
       setError(err.response.data);
     }
     setDeleteTerm("");
-    getPatients();
+    dataFetch();
   };
 
   useEffect(() => {
     getPatients();
-  }, []);
+  }, [fetch]);
 
   return (
     <React.Fragment>
-      <h1>Patient Spread Sheet</h1>
+      <h1>Patients Spread Sheet</h1>
       <Table patients={patients} />
       <SearchBox
         searchTerm={searchTerm}
